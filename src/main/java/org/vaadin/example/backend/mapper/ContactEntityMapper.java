@@ -6,5 +6,5 @@ import org.vaadin.example.backend.entity.ContactEntity;
 import org.vaadin.example.common.mapper.EntityMapper;
 
 @Mapper(componentModel = "Spring")
-public interface ContractEntityMapper extends EntityMapper<Contact, ContactEntity> {
+public interface ContactEntityMapper extends EntityMapper<Contact, ContactEntity> {
 }

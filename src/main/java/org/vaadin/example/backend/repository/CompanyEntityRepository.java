@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import org.vaadin.example.backend.entity.CompanyEntity;
 
 @Repository
-public interface CompanyRepository
+public interface CompanyEntityRepository
         extends JpaRepository<CompanyEntity, Long> {
 }

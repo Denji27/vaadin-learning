@@ -14,7 +14,7 @@ import org.vaadin.example.common.domain.AbstractDomain;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Setter(AccessLevel.PRIVATE)
+@Setter
 @Getter
 public class Contact extends AbstractDomain {
 
@@ -23,4 +23,9 @@ public class Contact extends AbstractDomain {
     private ContactEntity.Status status;
     private String email;
     private Long companyId;
+    private Company company;
+
+    public void enrichCompany(Company company) {
+        this.company = company;
+    }
 }
