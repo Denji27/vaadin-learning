@@ -1,4 +1,4 @@
-package org.vaadin.example.ui;
+package org.vaadin.example.ui.views.list;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -7,19 +7,25 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.checkerframework.checker.units.qual.C;
+import com.vaadin.flow.spring.security.AuthenticationContext;
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.vaadin.example.backend.domain.Company;
 import org.vaadin.example.backend.domain.Contact;
 import org.vaadin.example.backend.service.CompanyService;
 import org.vaadin.example.backend.service.ContactService;
+import org.vaadin.example.ui.MainLayout;
 
 import java.util.List;
 import java.util.Objects;
 
-@Route("")
+@Route(value = "", layout = MainLayout.class)
+@PageTitle("Contact | Vaadin CRM")
+@RolesAllowed("ADMIN")
 //@CssImport("./themes/my-theme/styles.css")
-public class MainView extends VerticalLayout {
+public class ListView extends VerticalLayout {
 
 //    public MainView() {
 //        Button button = new Button("Click me");
@@ -39,11 +45,13 @@ public class MainView extends VerticalLayout {
     private final CompanyService companyService;
     private final ContactForm form;
 
-    public MainView(
+    public ListView(
             ContactService contactService,
-            CompanyService companyService) {
+            CompanyService companyService,
+            AuthenticationContext authContext) {
         this.contactService = contactService;
         this.companyService = companyService;
+        System.out.println(authContext.getAuthenticatedUser(UserDetails.class).get().getAuthorities());
         addClassName("list-view");
         setSizeFull();
         this.configureGrid();

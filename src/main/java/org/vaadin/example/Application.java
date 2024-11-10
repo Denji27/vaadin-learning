@@ -5,6 +5,7 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
 /**
  * The entry point of the Spring Boot application.
@@ -13,8 +14,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * and some desktop browsers.
  *
  */
-@SpringBootApplication
-@PWA(name = "vaadin-learning", shortName = "vaadin-learning")
+@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
+@PWA(
+        name = "vaadin-learning",
+        shortName = "vaadin-learning",
+        iconPath = "src/main/frontend/webapp/icons/icon.jpg")
 @Theme("my-theme")
 public class Application implements AppShellConfigurator {
 

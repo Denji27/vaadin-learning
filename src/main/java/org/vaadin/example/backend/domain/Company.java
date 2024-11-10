@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.vaadin.example.common.domain.AbstractDomain;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +20,9 @@ import org.vaadin.example.common.domain.AbstractDomain;
 public class Company extends AbstractDomain {
 
     private String name;
+    private List<Contact> contacts;
+
+    public void enrichContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
 }

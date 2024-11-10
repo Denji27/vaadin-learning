@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.Keys;
 
-public class MainViewIT extends BrowserTestBase {
+public class ListViewIT extends BrowserTestBase {
 
     /**
      * If running on CI, get the host name from environment variable HOSTNAME

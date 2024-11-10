@@ -13,7 +13,10 @@ import org.vaadin.example.backend.mapper.ContactEntityMapper;
 import org.vaadin.example.backend.repository.CompanyEntityRepository;
 import org.vaadin.example.backend.repository.ContactEntityRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,8 +32,29 @@ public class CompanyService {
     private final ContactEntityMapper contactEntityMapper;
 
     public List<Company> findAll() {
-        return this.companyEntityMapper.toDomain(
-                this.companyEntityRepository.findAll());
+        List<Company> companies =
+                this.companyEntityMapper.toDomain(
+                        this.companyEntityRepository.findAll());
+        List<Contact> contacts =
+                this.contactEntityMapper.toDomain(
+                        this.contactEntityRepository.findAll());
+        for (Company company : companies) {
+            List<Contact> contactList =
+                    contacts.stream()
+                            .filter(it -> Objects.equals(
+                                    it.getCompanyId(), company.getId()))
+                            .collect(Collectors.toList());
+            company.enrichContacts(contactList);
+        }
+        return companies;
+    }
+
+    public Map<String, Integer> getStats() {
+        HashMap<String, Integer> stats = new HashMap<>();
+        this.findAll().forEach(c -> {
+            stats.put(c.getName(), c.getContacts().size());
+        });
+        return stats;
     }
 
     @PostConstruct
